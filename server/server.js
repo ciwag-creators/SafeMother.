@@ -13,12 +13,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ Test route (place it here, outside the MongoDB connect)
+// ✅ Test Route (must come before routes)
 app.get("/api/test", (req, res) => {
   res.json({ message: "✅ SafeMother backend route working fine!" });
 });
 
-// Routes
+// ✅ API Routes
 app.use("/api/users", userRoutes);
 app.use("/api/tips", tipRoutes);
 app.use("/api/questions", questionRoutes);
@@ -26,7 +26,7 @@ app.use("/api/reminders", reminderRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB and start server
+// ✅ Connect to MongoDB and start server
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
