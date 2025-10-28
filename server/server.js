@@ -13,6 +13,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ✅ Test route (place it here, outside the MongoDB connect)
+app.get("/api/test", (req, res) => {
+  res.json({ message: "✅ SafeMother backend route working fine!" });
+});
+
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/tips", tipRoutes);
