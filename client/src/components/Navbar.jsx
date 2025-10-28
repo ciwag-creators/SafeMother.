@@ -9,6 +9,8 @@ export default function Navbar() {
           <Link to="/tips">Health Tips</Link>
           <Link to="/ask">Ask Question</Link>
           <Link to="/login">Login</Link>
+          <Link to="/tracker">Tracker</Link>
+          <Link to="/reminders">Reminders</Link>
         </div>
       </div>
     </nav>
