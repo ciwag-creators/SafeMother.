@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://safemother.onrender.com/api", // 👈 change this to your backend URL
+  baseURL: import.meta.env.VITE_API_BASE_URL || "https://safemother.onrender.com/api",
 });
 
-export const registerUser = (data) => API.post("/users/register", data);
-export const loginUser = (data) => API.post("/users/login", data);
+export default API;
