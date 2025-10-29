@@ -1,9 +1,18 @@
 import express from "express";
-import { registerUser, loginUser } from "../controllers/userController.js";
+import cors from "cors";
+import dotenv from "dotenv";
 
-const router = express.Router();
+dotenv.config();
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
+const app = express();
 
-export default router;
+app.use(cors());
+app.use(express.json());
+
+// 👇 Example API route
+app.get("/api/test", (req, res) => {
+  res.json({ message: "API is working!" });
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
