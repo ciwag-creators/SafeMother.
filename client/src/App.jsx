@@ -23,6 +23,7 @@ function App() {
             <Route path="/ask" element={<AskQuestion />} />
             <Route path="/tracker" element={<Tracker />} />
             <Route path="/reminders" element={<Reminders />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
       </div>
