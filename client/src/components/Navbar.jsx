@@ -1,18 +1,20 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
-export default function Navbar() {
+function Navbar() {
   return (
-    <nav className="bg-pink-600 text-white p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="font-bold text-lg">SafeMother</Link>
-        <div className="space-x-4">
-          <Link to="/tips">Health Tips</Link>
-          <Link to="/ask">Ask Question</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/tracker">Tracker</Link>
-          <Link to="/reminders">Reminders</Link>
-        </div>
+    <nav className="navbar">
+      <h2 className="logo">SafeMother</h2>
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/tips">Tips</Link>
+        <Link to="/questions">Questions</Link>
+        <Link to="/reminders">Reminders</Link>
+        <Link to="/login" className="login-btn">Login</Link>
       </div>
     </nav>
   );
 }
+
+export default Navbar;

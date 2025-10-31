@@ -1,11 +1,17 @@
-export default function Home() {
+import React from "react";
+import "./Home.css";
+
+function Home() {
   return (
-    <div className="flex flex-col items-center justify-center py-10 px-4 text-center">
-      <h1 className="text-3xl font-bold text-pink-700 mb-4">Welcome to SafeMother</h1>
-      <p className="text-gray-700 max-w-md">
-        Your trusted companion for maternal health and wellness.
-        Learn, track, and ask questions for a safer motherhood journey.
-      </p>
+    <div className="home">
+      <h1>Welcome to SafeMother</h1>
+      <p>Your trusted companion for maternal health and safe motherhood.</p>
+      <div className="home-buttons">
+        <button>View Health Tips</button>
+        <button>Ask a Question</button>
+      </div>
     </div>
   );
 }
+
+export default Home;

@@ -1,31 +1,31 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import Tips from "./pages/Tips";
-import AskQuestion from "./pages/AskQuestion";
-import Tracker from "./pages/Tracker";
+import Questions from "./pages/Questions";
 import Reminders from "./pages/Reminders";
-
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import "./App.css";
 
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-pink-50">
+      <div className="app-container">
         <Navbar />
-        <main className="flex-grow">
+        <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/tips" element={<Tips />} />
-            <Route path="/ask" element={<AskQuestion />} />
-            <Route path="/tracker" element={<Tracker />} />
+            <Route path="/questions" element={<Questions />} />
             <Route path="/reminders" element={<Reminders />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );
