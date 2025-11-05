@@ -1,5 +1,6 @@
 import Tip from "../models/Tip.js";
 
+// Create Tip
 export const createTip = async (req, res) => {
   try {
     const tip = await Tip.create(req.body);
@@ -9,6 +10,7 @@ export const createTip = async (req, res) => {
   }
 };
 
+// Get All Tips
 export const getTips = async (req, res) => {
   try {
     const tips = await Tip.find().sort({ createdAt: -1 });

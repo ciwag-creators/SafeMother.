@@ -1,9 +1,10 @@
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
 
+// Generate JWT Token
 const generateToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
+// Register New User
 export const registerUser = async (req, res) => {
   const { name, email, password, role, dueDate, location } = req.body;
   try {
@@ -23,6 +24,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// Login Existing User
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -38,26 +40,6 @@ export const loginUser = async (req, res) => {
     } else {
       res.status(401).json({ message: "Invalid email or password" });
     }
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-import Tip from "../models/Tip.js";
-
-export const createTip = async (req, res) => {
-  try {
-    const tip = await Tip.create(req.body);
-    res.status(201).json(tip);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-export const getTips = async (req, res) => {
-  try {
-    const tips = await Tip.find().sort({ createdAt: -1 });
-    res.json(tips);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

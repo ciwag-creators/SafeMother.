@@ -7,8 +7,7 @@ import Tips from "./pages/Tips";
 import Questions from "./pages/Questions";
 import Reminders from "./pages/Reminders";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import "./App.css";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -22,7 +21,7 @@ function App() {
             <Route path="/questions" element={<Questions />} />
             <Route path="/reminders" element={<Reminders />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/register" element={<Register/>} />
           </Routes>
         </main>
         <Footer />

@@ -9,8 +9,27 @@ import reminderRoutes from "./routes/reminderRoutes.js";
 
 dotenv.config();
 
+// 🛑 CRITICAL FIX: Define the allowedOrigins array here!
+const allowedOrigins = [
+    'http://localhost:5173',           // Your local React development port
+    process.env.FRONTEND_URL,          // Your deployed SafeMother URL (add this to your .env)
+];
+
 const app = express();
-app.use(cors());
+app.use(cors({
+        origin: (origin, callback) => {
+            // Allow requests with no origin (like mobile apps or curl requests)
+            if (!origin) return callback(null, true); 
+            // Check if the origin is in our allowed list
+            if (allowedOrigins.indexOf(origin) === -1) {
+                const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+                return callback(new Error(msg), false);
+            }
+            return callback(null, true);
+        },
+        credentials: true, // IMPORTANT: Allows cookies (like a JWT token) to be sent and received
+    })
+  );
 app.use(express.json());
 
 // ✅ Test Route (must come before routes)
