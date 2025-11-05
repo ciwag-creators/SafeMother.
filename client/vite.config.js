@@ -1,12 +1,15 @@
-// vite.config.js
-
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    // ONLY THE REACT PLUGIN REMAINS!
-   ],
+  plugins: [react()],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000", // Your backend dev server
+        changeOrigin: true,
+        secure: false,
+      }
+    }
+  }
 })

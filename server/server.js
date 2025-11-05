@@ -18,14 +18,14 @@ const allowedOrigins = [
 ];
 
 const app = express();
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://safemother-project.vercel.app"
-  ],
-  credentials: true,
-}));
 
+app.use(
+  cors({
+    origin: "https://safe-mother.vercel.app", // ✅ your frontend URL
+    methods: "GET,POST,PUT,DELETE,PATCH",
+    credentials: true,
+  })
+);
 
 
 app.use(cors({
