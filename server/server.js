@@ -17,13 +17,13 @@ const app = express();
 // ✅ BODY PARSER
 app.use(express.json());
 
-// ✅ FIXED CORS CONFIG
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
       "https://safe-mother.vercel.app",
       "https://safemother-front.vercel.app",
+      "https://safemother.onrender.com",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -31,8 +31,9 @@ app.use(
   })
 );
 
+
 // ✅ CRITICAL: allow preflight requests properly
-app.options("*", cors());
+app.options("/*", cors());
 
 // ✅ Test Route
 app.get("/api/test", (req, res) => {
