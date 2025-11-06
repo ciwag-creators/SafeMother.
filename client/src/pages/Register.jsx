@@ -15,13 +15,6 @@ export default function Register() {
 
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetch("https://safemother.onrender.com/api/test")
-      .then((res) => res.json())
-      .then((data) => console.log("Backend Connected ✅", data))
-      .catch(() => console.log("Backend Connection Failed ❌"));
-  }, []);
-
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
