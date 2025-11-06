@@ -19,7 +19,6 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://safe-mother.vercel.app",
-    "https://safe-mother-*.vercel.app" // wildcard support
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
