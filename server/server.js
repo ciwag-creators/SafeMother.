@@ -1,14 +1,13 @@
 import express from "express";
+import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import tipRoutes from "./routes/tipRoutes.js";
 import questionRoutes from "./routes/questionRoutes.js";
 import reminderRoutes from "./routes/reminderRoutes.js";
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
@@ -35,8 +34,13 @@ app.use("/api/tips", tipRoutes);
 app.use("/api/questions", questionRoutes);
 app.use("/api/reminders", reminderRoutes);
 
+// ✅ Start Server Only After Database Connects
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () =>
-  console.log(`✅ Server running and connected on port ${PORT}`)
-);
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("✅ MongoDB connected successfully");
+    app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+  })
+  .catch((err) => console.error("❌ MongoDB connection failed:", err.message));
