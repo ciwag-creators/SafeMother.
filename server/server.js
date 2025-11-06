@@ -32,9 +32,6 @@ app.use(
 );
 
 
-// ✅ CRITICAL: allow preflight requests properly
-app.options("/*", cors());
-
 // ✅ Test Route
 app.get("/api/test", (req, res) => {
   res.json({ message: "✅ SafeMother backend route working!" });
