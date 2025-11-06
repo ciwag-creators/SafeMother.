@@ -1,5 +1,4 @@
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
@@ -14,7 +13,11 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: "*",
+  origin: [
+    "http://localhost:5173",
+    "https://safe-mother.vercel.app",
+    "https://safemother-front.vercel.app"
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
@@ -34,9 +37,6 @@ app.use("/api/reminders", reminderRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
-  })
-  .catch((err) => console.error("❌ MongoDB connection failed:", err.message));
+app.listen(PORT, () =>
+  console.log(`✅ Server running and connected on port ${PORT}`)
+);
