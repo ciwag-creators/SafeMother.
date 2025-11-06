@@ -24,7 +24,6 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-app.options("*", cors());
 
 // ✅ Test Route (must come before routes)
 app.get("/api/test", (req, res) => {
