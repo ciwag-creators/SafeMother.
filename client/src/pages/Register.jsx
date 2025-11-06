@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import API from "../api";
+import { registerUser } from "../api";  
 import "../styles/auth.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -29,7 +30,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      const res = await API.post("/api/users/register", form);
+     const res = await registerUser(form);
 
       toast.success("Account Created Successfully 🎉", { autoClose: 2000 });
 
