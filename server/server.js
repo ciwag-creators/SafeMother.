@@ -11,20 +11,26 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://safe-mother.vercel.app",
-  "https://safemother-front.vercel.app"
-];
-
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-}));
-
 app.use(express.json());
+
+// ✅ CORS FIX (FULLY OPEN TO FRONTEND)
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://safe-mother.vercel.app",
+      "https://safemother-front.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
+// ✅ Allow preflight requests
+app.options("*", (req, res) => {
+  res.sendStatus(200);
+});
 
 // ✅ Test route
 app.get("/api/test", (req, res) => {
