@@ -11,37 +11,21 @@ import reminderRoutes from "./routes/reminderRoutes.js";
 dotenv.config();
 connectDB(); // if needed
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://safemother-front.vercel.app",
-  process.env.FRONTEND_URL, // Optional, if set in .env
-];
-
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://safe-mother.vercel.app", // ✅ your frontend URL
-    methods: "GET,POST,PUT,DELETE,PATCH",
-    credentials: true,
-  })
-);
-
+app.use(express.json());
 
 app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (mobile apps, curl, etc.)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error("CORS blocked: " + origin));
-    }
-  },
-  credentials: true,
+  origin: [
+    "http://localhost:5173",
+    "https://safe-mother.vercel.app",
+    "https://safe-mother-*.vercel.app" // wildcard support
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-app.use(express.json());
+app.options("*", cors());
 
 // ✅ Test Route (must come before routes)
 app.get("/api/test", (req, res) => {
