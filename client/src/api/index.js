@@ -6,7 +6,7 @@ const API = axios.create({
 });
 
 // AUTH
-export const registerUser = (data) => API.post("/api/users/register", data);
-export const loginUser = (data) => API.post("/api/users/login", data);
+export const registerUser = (data) => API.post("/users/register", data);
+export const loginUser = (data) => API.post("/users/login", data);
 
 export default API;
