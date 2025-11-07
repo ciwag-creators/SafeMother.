@@ -1,30 +1,26 @@
 import { useState } from "react";
-import API from "../api";
+import API from "../api"; // ✅ Corrected import
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
 
-  // Handle input change
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.loginUser(form);
+      const res = await API.loginUser(form); // ✅ Fixed
+
       alert("✅ Login successful!");
 
-      // Save token to localStorage
       if (res.data.token) localStorage.setItem("token", res.data.token);
 
-      // ✅ Clear form after success
       setForm({ email: "", password: "" });
 
-      // ✅ Redirect to dashboard or homepage
       setTimeout(() => (window.location.href = "/dashboard"), 1500);
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      alert(err.response?.data?.message || "Login failed ❌");
     }
   };
 
