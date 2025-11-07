@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
-import { registerUser } from "../api";  
+import { useState } from "react";
+import API from "../api";   // ✅ Correct import
 import "../styles/auth.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -23,11 +22,11 @@ export default function Register() {
     setLoading(true);
 
     try {
-     const res = await registerUser(form);
+      const res = await API.registerUser(form); // ✅ Fixed
 
       toast.success("Account Created Successfully 🎉", { autoClose: 2000 });
 
-      localStorage.setItem("token", res.data.token);
+      if (res.data.token) localStorage.setItem("token", res.data.token);
 
       setTimeout(() => (window.location.href = "/login"), 2000);
     } catch (error) {
