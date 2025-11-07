@@ -1,5 +1,4 @@
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
@@ -10,20 +9,21 @@ import questionRoutes from "./routes/questionRoutes.js";
 import reminderRoutes from "./routes/reminderRoutes.js";
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
-// ✅ BODY PARSER
+// ✅ Connect to DB once
+connectDB();
+
+// ✅ Middleware
 app.use(express.json());
 
+// ✅ CORS (Add new domain when frontend deploys)
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://safe-mother.vercel.app",
-      "https://safemother-front.vercel.app",
-      "https://safemother.onrender.com",
+      "https://safemother.vercel.app",   // ✅ use your lowercase repo name on Vercel
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -31,26 +31,20 @@ app.use(
   })
 );
 
-
 // ✅ Test Route
 app.get("/api/test", (req, res) => {
-  res.json({ message: "✅ SafeMother backend route working!" });
+  res.json({ message: "✅ SafeMother backend is live!" });
 });
 
-// ✅ API Routes
+// ✅ Routes
 app.use("/api/users", userRoutes);
 app.use("/api/tips", tipRoutes);
 app.use("/api/questions", questionRoutes);
 app.use("/api/reminders", reminderRoutes);
 
+// ✅ Railway compatible PORT
 const PORT = process.env.PORT || 5000;
 
-// ✅ Start Server only after DB connects
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() =>
-    app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`))
-  )
-  .catch((err) =>
-    console.error("❌ MongoDB connection failed:", err.message)
-  );
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
