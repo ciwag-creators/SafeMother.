@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { loginUser } from "../api";
+import API from "../api";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
 
   // Handle input change
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await loginUser(form);
+      const res = await API.loginUser(form);
       alert("✅ Login successful!");
 
       // Save token to localStorage
