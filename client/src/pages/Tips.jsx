@@ -1,27 +1,45 @@
-import { useEffect, useState } from "react";
-import API from "../api";
+import React from "react";
+import "./Tips.css";
 
-export default function Tips() {
-  const [tips, setTips] = useState([]);
-
-  useEffect(() => {
-    API.get("/tips")
-      .then((res) => setTips(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+const Tips = () => {
+  const tipsList = [
+    {
+      title: "Eat Healthy",
+      message: "Include fruits, vegetables, lean protein and drink enough water daily."
+    },
+    {
+      title: "Attend Antenatal Care",
+      message: "Regular check-ups help track your health and baby’s development."
+    },
+    {
+      title: "Get Enough Rest",
+      message: "Sleep and rest are very important during pregnancy. Avoid stress."
+    },
+    {
+      title: "Avoid Harmful Substances",
+      message: "Stay away from alcohol, smoking, and drugs not prescribed by a doctor."
+    },
+    {
+      title: "Mild Exercises",
+      message: "Engage in activities like walking or light stretching to improve circulation."
+    }
+  ];
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold text-pink-700 mb-4">Maternal Health Tips</h2>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {tips.map((tip) => (
-          <div key={tip._id} className="p-4 border rounded-lg shadow-sm bg-white">
-            <h3 className="font-semibold text-lg">{tip.title}</h3>
-            <p className="text-gray-600 mt-2">{tip.content}</p>
-            <p className="text-sm text-pink-500 mt-1">Category: {tip.category}</p>
-          </div>
-        ))}
-      </div>
+    <div className="tips-container">
+      <h2 className="tips-title">Pregnancy Tips</h2>
+
+<ul className="tips-list">
+  {tipsList.map((tip, index) => (
+    <li key={index} className="tip-item">
+      <h3>{tip.title}</h3>
+      <p>{tip.message}</p>
+    </li>
+  ))}
+</ul>
+
     </div>
   );
-}
+};
+
+export default Tips;

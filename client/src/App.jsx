@@ -1,7 +1,6 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import AppLayout from "./layout/AppLayout";
+import "./styles/global.css";
 import Home from "./pages/Home";
 import Tips from "./pages/Tips";
 import Questions from "./pages/Questions";
@@ -12,20 +11,47 @@ import Register from "./pages/Register";
 function App() {
   return (
     <Router>
-      <div className="app-container">
-        <Navbar />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/tips" element={<Tips />} />
-            <Route path="/questions" element={<Questions />} />
-            <Route path="/reminders" element={<Reminders />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register/>} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <AppLayout>
+              <Home />
+            </AppLayout>
+          }
+        />
+
+        <Route
+          path="/tips"
+          element={
+            <AppLayout>
+              <Tips />
+            </AppLayout>
+          }
+        />
+
+        <Route
+          path="/questions"
+          element={
+            <AppLayout>
+              <Questions />
+            </AppLayout>
+          }
+        />
+
+        <Route
+          path="/reminders"
+          element={
+            <AppLayout>
+              <Reminders />
+            </AppLayout>
+          }
+        />
+
+        {/* Auth Pages (No bottom nav) */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </Router>
   );
 }

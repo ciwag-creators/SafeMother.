@@ -1,16 +1,21 @@
-import React from "react";
+import heroImg from "../assets/mother.png";
+import "./Home.css";
 
-function Home() {
+export default function Home() {
   return (
     <div className="home">
-      <h1>Welcome to SafeMother</h1>
-      <p>Your trusted companion for maternal health and safe motherhood.</p>
-      <div className="home-buttons">
-        <button>View Health Tips</button>
-        <button>Ask a Question</button>
+      <div className="hero">
+
+        <div className="hero-text">
+          <h2>
+            Welcome to <span>SafeMother</span>
+          </h2>
+          <p>Supporting mothers with guidance, community and care.</p>
+          <a href="/tips" className="btn-start">Get Started</a>
+        </div>
+
+        <img src={heroImg} alt="Mother and baby" className="hero-img" />
       </div>
     </div>
   );
 }
-
-export default Home;

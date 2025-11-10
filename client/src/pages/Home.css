@@ -1,0 +1,145 @@
+/* ===========================
+   Home / Hero Section
+=========================== */
+.home {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f5f3f8 0%, #ffffff 40%, #fff5fa 100%);
+  padding-top: 90px; /* this pushes content down from navbar */
+}
+
+/* Hero Container */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 92%; /* nice breathing room left & right */
+  max-width: 1600px;
+  gap: 50px;
+}
+
+
+/* Hero Text (Overlapping Image) */
+.hero-text {
+  position: relative; 
+  max-width: 45%; 
+  z-index: 3;
+  color: #ee62e2; 
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.hero h2 {
+  font-size: 5rem;
+  font-weight: 800;
+  margin-bottom: 25px;
+  line-height: 1.2;
+  text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.35);
+}
+
+.hero p {
+  font-size: 1.7rem;
+  margin-bottom: 35px;
+  line-height: 1.5;
+  text-shadow: 1.5px 1.5px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Button */
+.btn-start {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 18px 32px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: 0.3s ease;
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+}
+.btn-start:hover {
+  background: #5a2fa6;
+  transform: translateY(-2px);
+  box-shadow: 3px 6px 14px rgba(0,0,0,0.25);
+}
+
+/* Hero Image */
+.hero-img {
+  width: 50vw;   /* Fill right side */
+  max-width: 800px;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+  z-index: 1;
+  transition: 0.3s ease;
+}
+
+.hero-img:hover {
+  opacity: 1;
+}
+
+/* Gradient Overlay on Image */
+.hero-img::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(
+    to left, 
+    rgba(0, 0, 0, 0.25) 0%, 
+    rgba(0, 0, 0, 0) 70%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ===========================
+   Responsive Design
+=========================== */
+@media (max-width: 1200px) {
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+  }
+
+  .hero-text {
+    position: static;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .hero h2 {
+    font-size: 3.8rem;
+  }
+
+  .hero p {
+    font-size: 1.4rem;
+  }
+
+  .hero-img {
+    width: 90%;
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero h2 {
+    font-size: 2.8rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .hero-img {
+    width: 100%;
+    max-width: 100%;
+  }
+}

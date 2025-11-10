@@ -3,6 +3,8 @@ import API from "../api";   // ✅ Correct import
 import "../styles/auth.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../styles/auth.css";
+
 
 export default function Register() {
   const [form, setForm] = useState({

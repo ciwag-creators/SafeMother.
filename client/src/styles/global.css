@@ -1,0 +1,68 @@
+/* global.css */
+main {
+  padding-top: 80px; /* Adjust based on navbar height */
+}
+
+:root {
+  --color-primary: #6A38C2;      /* Deep purple */
+  --color-secondary: #5A6FFC;    /* Softer friendly blue (can be used for highlights, links, etc.) */
+  --color-accent: #E46BFF;       /* Soft accent */
+  --color-danger: #D62839;       /* Alerts / delete */
+  --color-bg: #FAFAFF;           /* Gentle off-white */
+  --color-text: #1A1A1A;
+  --color-muted: #6D6D6D;
+  --color-border: #E0E0E0;
+}
+
+.btn-main {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.btn-main:hover {
+  background: #5a2fa6; /* Slightly darker shade */
+  transform: translateY(-2px);
+}
+
+/* Only for delete / remove / warning actions */
+.btn-danger {
+  background: var(--color-danger);
+  color: #fff;
+}
+.btn-danger:hover {
+  background: #b82131;
+}
+
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Navbar height */
+:root {
+  --navbar-height-desktop: 70px;
+  --navbar-height-mobile: 80px;
+}
+
+/* Page content below fixed navbar */
+.page-content {
+  padding-top: var(--navbar-height-desktop);
+  width: 100%;
+  min-height: 100vh; /* ensure it fills viewport */
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  .page-content {
+    padding-top: var(--navbar-height-mobile);
+  }
+}

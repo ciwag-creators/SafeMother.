@@ -1,5 +1,6 @@
 import { useState } from "react";
-import API from "../api"; // ✅ Corrected import
+import API from "../api";
+import "../styles/auth.css";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -10,7 +11,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.loginUser(form); // ✅ Fixed
+      const res = await API.loginUser(form);
 
       alert("✅ Login successful!");
 
@@ -18,45 +19,45 @@ export default function Login() {
 
       setForm({ email: "", password: "" });
 
-      setTimeout(() => (window.location.href = "/dashboard"), 1500);
+      setTimeout(() => (window.location.href = "/dashboard"), 1000);
     } catch (err) {
       alert(err.response?.data?.message || "Login failed ❌");
     }
   };
 
   return (
-    <div className="flex justify-center items-center py-10 bg-gray-50 min-h-screen">
-      <form onSubmit={handleSubmit} className="bg-white shadow-lg p-8 rounded-2xl w-96">
-        <h2 className="text-3xl font-bold text-pink-600 mb-6 text-center">Welcome Back</h2>
+    <div className="auth-container">
+      <form className="auth-box" onSubmit={handleSubmit}>
+        <h2 className="auth-title">Welcome Back</h2>
 
         <input
-          className="border border-gray-300 p-3 w-full mb-4 rounded-md focus:ring-2 focus:ring-pink-400"
-          name="email"
-          placeholder="Email Address"
           type="email"
+          name="email"
+          className="auth-input"
+          placeholder="Email Address"
           value={form.email}
           onChange={handleChange}
           required
         />
 
         <input
-          className="border border-gray-300 p-3 w-full mb-4 rounded-md focus:ring-2 focus:ring-pink-400"
           type="password"
           name="password"
+          className="auth-input"
           placeholder="Password"
           value={form.password}
           onChange={handleChange}
           required
         />
 
-        <button className="bg-pink-600 hover:bg-pink-700 text-white font-semibold w-full py-3 rounded-md transition duration-200">
+        <button type="submit" className="auth-btn">
           Login
         </button>
 
-        <p className="text-sm text-center mt-4">
-          Don’t have an account?{" "}
-          <a href="/register" className="text-pink-600 hover:underline">
-            Register here
+        <p style={{ textAlign: "center", marginTop: "10px", fontSize: "14px" }}>
+          Don’t have an account?
+          <a href="/register" style={{ color: "#d6336c", marginLeft: "5px" }}>
+            Register
           </a>
         </p>
       </form>

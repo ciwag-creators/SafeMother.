@@ -1,0 +1,37 @@
+/* App.css */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main, .page-content {
+  padding-top: 70px; /* same height as your navbar */
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* Optional: adjust for mobile */
+@media (max-width: 768px) {
+  .page-content {
+    padding-top: 80px; /* navbar might be taller on mobile */
+  }
+}
+
+/* Make sure links look clean */
+a {
+  text-decoration: none;
+  color: inherit;
+}

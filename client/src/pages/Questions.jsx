@@ -1,52 +1,159 @@
 import { useState, useEffect } from "react";
 import API from "../api";
+import "./Questions.css";
 
 export default function AskQuestion() {
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchQuestions = async () => {
-    const res = await API.get("/questions");
-    setQuestions(res.data);
+    try {
+      const res = await API.get("/questions");
+      setQuestions(res.data);
+    } catch (err) {
+      console.log("Error fetching questions:", err);
+    }
   };
 
-  useEffect(() => { fetchQuestions(); }, []);
+  useEffect(() => { 
+    fetchQuestions(); 
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!question.trim()) return;
+    
+    setIsSubmitting(true);
     try {
       await API.post("/questions", { question });
       setQuestion("");
       fetchQuestions();
     } catch (err) {
-      console.log(err);
+      console.log("Error submitting question:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold text-pink-700 mb-4">Ask a Health Worker</h2>
-      <form onSubmit={handleSubmit} className="mb-6">
-        <textarea
-          className="border p-2 w-full rounded-md"
-          placeholder="Enter your question..."
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-        />
-        <button className="bg-pink-600 text-white px-4 py-2 rounded-md mt-2">Submit</button>
-      </form>
+    <div className="questions-page">
+      
+      {/* Header Section */}
+      <div className="page-header">
+        <h1 className="page-title">Get Expert Health Advice</h1>
+        <p className="page-subtitle">Ask our certified health professionals about pregnancy, childcare, and maternal wellness</p>
+      </div>
 
-      <h3 className="font-semibold text-lg mb-2">Recent Questions</h3>
-      {questions.map((q) => (
-        <div key={q._id} className="border-b py-2">
-          <p className="text-gray-800">{q.question}</p>
-          {q.answer ? (
-            <p className="text-green-600 text-sm">Answer: {q.answer}</p>
-          ) : (
-            <p className="text-gray-500 text-sm">Awaiting response...</p>
-          )}
+      {/* Ask Question Form */}
+      <div className="ask-card">
+        <div className="card-header">
+          <h3>Ask Your Question</h3>
+          <div className="expert-badge">
+            <span className="badge-icon">👩‍⚕️</span>
+            Certified Health Workers
+          </div>
         </div>
-      ))}
+        
+        <form onSubmit={handleSubmit} className="ask-form">
+          <div className="input-group">
+            <textarea
+              placeholder="What would you like to ask our health experts? For example: 'Is this symptom normal during pregnancy?' or 'What foods should I avoid while breastfeeding?'"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              maxLength={500}
+              className="question-input"
+            />
+            <div className="input-footer">
+              <span className="char-count">{question.length}/500</span>
+            </div>
+          </div>
+          
+          <button 
+            type="submit" 
+            className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
+            disabled={!question.trim() || isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <span className="spinner"></span>
+                Sending...
+              </>
+            ) : (
+              <>
+                <span className="btn-icon">📤</span>
+                Send Question
+              </>
+            )}
+          </button>
+        </form>
+        
+        <div className="privacy-note">
+          <span className="lock-icon">🔒</span>
+          Your questions are private and answered by verified health professionals
+        </div>
+      </div>
+
+      {/* Recent Questions Section */}
+      <div className="recent-questions">
+        <div className="section-header">
+          <h2 className="section-title">Community Questions & Answers</h2>
+          <div className="filter-tabs">
+            <button className="filter-btn active">All</button>
+            <button className="filter-btn">Answered</button>
+            <button className="filter-btn">Pending</button>
+          </div>
+        </div>
+
+        {questions.length === 0 ? (
+          <div className="empty-state">
+            <div className="empty-icon">💬</div>
+            <h3>No questions yet</h3>
+            <p>Be the first to ask a question to our health experts</p>
+          </div>
+        ) : (
+          <div className="questions-grid">
+            {questions.map((q) => (
+              <div key={q._id} className="question-card">
+                <div className="question-header">
+                  <span className="user-avatar">👤</span>
+                  <div className="question-meta">
+                    <span className="question-date">
+                      {new Date(q.createdAt).toLocaleDateString()}
+                    </span>
+                    <span className={`status-badge ${q.answer ? 'answered' : 'pending'}`}>
+                      {q.answer ? 'Answered' : 'Pending'}
+                    </span>
+                  </div>
+                </div>
+                
+                <p className="question-text">"{q.question}"</p>
+
+                {q.answer ? (
+                  <div className="answer-section">
+                    <div className="answer-header">
+                      <span className="expert-avatar">👩‍⚕️</span>
+                      <span className="expert-label">Health Expert Response</span>
+                    </div>
+                    <p className="answer-text">{q.answer}</p>
+                    <div className="answer-actions">
+                      <button className="action-btn">👍 Helpful</button>
+                      <button className="action-btn">💬 Follow up</button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="pending-state">
+                    <div className="pending-icon">⏳</div>
+                    <p className="pending-text">Our health team is reviewing your question</p>
+                    <small>Typically answered within 24 hours</small>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }
